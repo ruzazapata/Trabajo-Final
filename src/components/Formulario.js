@@ -3,15 +3,17 @@ import  { v4 as uuidv4 } from 'uuid';
 uuidv4();
 
 
-const Formulario = ({ crearTarea }) => {
+const Formulario = ({ crearEquipo }) => {
 
     // Crear State de Tareas
-    const [tarea, actualizarTarea] = useState({
+    const [equipo, actualizarEquipo] = useState({
         nombre: '',
         apellido: '',
+        tipo: '',
+        codigo: '',
         fecha: '',
         hora: '',
-        realizartarea: ''
+        detalleequipo: ''
     });
 
     const [ error, actualizarError ] = useState(false)
@@ -19,24 +21,24 @@ const Formulario = ({ crearTarea }) => {
     // Funcion que se ejecuta cada vez que el usuario escribe en un input
     const actualizarState =  e  => {
  
-        actualizarTarea({
-            ...tarea,
+        actualizarEquipo({
+            ...equipo,
            [e.target.name] : e.target.value
         })
 }
 
 // extraer los valores
-    const { nombre, apellido, fecha, hora, realizartarea } = tarea
+    const { nombre, apellido, tipo, codigo, fecha, hora, detalleequipo } = equipo
 
 
-// Cuando el usuario presione agragar tarea
-    const submitTarea = (e) => {
+// Cuando el usuario presione agragar equipo
+    const submitEquipo = (e) => {
         e.preventDefault();
          console.log(nombre)
 
         // Validar
         // || los pipes significa "o" y comprueba que se vaya cumpliendo cada una u otra
-        if(nombre.trim() === '' || apellido.trim() === '' || fecha.trim() === '' || hora.trim() === '' || realizartarea.trim() === ''){
+        if(nombre.trim() === '' || apellido.trim() === '' ||  tipo.trim() === '' || codigo.trim() === '' || fecha.trim() === '' || hora.trim() === '' || detalleequipo.trim() === '' ){
             actualizarError(true)
             return;
         }
@@ -46,30 +48,32 @@ const Formulario = ({ crearTarea }) => {
 
 
         // Asignar un ID
-        tarea.id = uuidv4();
-        console.log(tarea)
+        equipo.id = uuidv4();
+        console.log(equipo)
 
-        //Crear una tarea
-        crearTarea(tarea)
+        //Crear un equipo
+        crearEquipo(equipo)
 
         // Reinciar el formulario
-        actualizarTarea({
+        actualizarEquipo({
             nombre: '',
             apellido: '',
+            tipo: '' ,
+            codigo: '' ,
             fecha: '',
             hora: '',
-            realizartarea: ''
+            detalleequipo: ''
          })
 
     }
 
     return ( 
         <>
-            <h2>Crear Tareas</h2>
+            <h2>Cargar equipo</h2>
 
             { error ? <p className="alerta-error">Todos los campos son obligatrios</p> : null }
             <form className="u-full-whidh"
-            onSubmit={submitTarea}
+            onSubmit={submitEquipo}
             >
                 <label>Nombre </label>
                 <input
@@ -93,6 +97,28 @@ const Formulario = ({ crearTarea }) => {
                 >
                 </input>
 
+                <label>Tipo de equipamiento </label>
+                <input
+                type="text"
+                name="tipo"
+                className="u-full-width"
+                placeholder="Tipo de equipamiento"
+                onChange={actualizarState}
+                value={tipo}
+                >
+                </input>
+
+                <label>Codigo del equipo </label>
+                <input
+                type="text"
+                name="codigo"
+                className="u-full-width"
+                placeholder="Codigo del equipamiento"
+                onChange={actualizarState}
+                value={codigo}
+                >
+                </input>
+
                 <label>Fecha </label>
                 <input
                 type="date"
@@ -113,12 +139,12 @@ const Formulario = ({ crearTarea }) => {
                 >
                 </input>
 
-                <label>Tarea a realizar </label>
+                <label>Detalles del equipo </label>
                 <textarea
-                name="realizartarea"
+                name="detalleequipo"
                 className="u-full-width button-primary"
                 onChange={actualizarState}
-                value={realizartarea}
+                value={detalleequipo}
                 >
                 </textarea>
 
@@ -126,7 +152,7 @@ const Formulario = ({ crearTarea }) => {
                 type="submit"
                 className="u-full-width button-primary"
                 >
-                    Agragar tarea
+                    Agragar equipo
                 </button>
 
             </form>

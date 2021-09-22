@@ -5,7 +5,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-image: linear-gradient(-225deg, #4574b2 0%, #0a67be 52%, #170b5a 100%);
+  background-image: linear-gradient(-225deg, #f89090 0%, #f35b5b 52%, #ff0707 100%);
   min-height: 100%;
   padding-bottom: 5rem;
 }
@@ -77,7 +77,7 @@ input[type="time"] {
 }
 .button.eliminar,
 .button.eliminar:hover {
-  background-color: #c10059;
+  background-color: #c10000;
   color: white;
   margin-top: 2rem;
 }
@@ -91,3 +91,10 @@ input[type="time"] {
   text-align: center;
   font-family:  'Staatliches', cursive;
 } 
+
+button.u-full-width {
+  background-color: #c10000;
+  color: white;
+  margin-top: 2rem;
+}
+

@@ -1,69 +1,69 @@
 import React, { useEffect, useState  } from 'react';
 import Formulario from "./components/Formulario";
-import Tarea from './components/Tarea';
+import Equipo from './components/Equipo';
 
 
 function App() {
 
-  // tareas en el localStorage
-  let tareasIniciales = JSON.parse(localStorage.getItem('tareas'));
-  if(!tareasIniciales) {
-    tareasIniciales = [];
+  // Equipos en el localStorage
+  let stockEquipos = JSON.parse(localStorage.getItem('equipos'));
+  if(!stockEquipos) {
+    stockEquipos = [];
   }
 
   // Arreglo de las tareas
-  const [ tareas, guardarTareas ] = useState(tareasIniciales);
+  const [ equipos, guardarEquipos ] = useState(stockEquipos);
 
   // Use Effect para realizar ciertas operaciones cuando el state cambia
 
   useEffect( () => {
 
-    if(tareasIniciales) {
-      localStorage.setItem('tareas', JSON.stringify(tareas))
+    if(stockEquipos) {
+      localStorage.setItem('equipos', JSON.stringify(equipos))
     } else {
-      localStorage.setItem('tareas', JSON.stringify([]))
+      localStorage.setItem('equipos', JSON.stringify([]))
     }
   
-  },[tareas]);
+  },[equipos]);
 
 
   // Funcion que tome las tareas actuales y agregue la nueva
-  const crearTarea = tarea => {
-   guardarTareas([
-     ...tareas,
-     tarea
+  const crearEquipo = equipo => {
+   guardarEquipos([
+     ...equipos,
+     equipo
    ])
   }
 
   // Funcion que elimnina las tareas por su id
-  const eliminarTarea = id => {
-    const nuevasTareas = tareas.filter( tarea => tarea.id !== id);
-    guardarTareas(nuevasTareas);
+  const eliminarEquipo = id => {
+    const nuevosEquipos = equipos.filter( equipo => equipo.id !== id);
+    guardarEquipos(nuevosEquipos);
   }
 
   // Mensaje condicional
-  const titulo = tareas.length === 0 ? 'No hay Tareas' : 'Adminstra tus tareas'
+  const titulo = equipos.length === 0 ? 'No se encuentra equipamiento en stock' : 'Equipamiento de Comunicaciones disponible'
 
   return (
     <>
-      <h1>Adminstrador de tareas</h1>
+      <h1>Almacen de Equipamiento de Comunicaciones</h1>
 
       <div className="container">
         <div className="row">
          <div className="one-half column">
           <Formulario
-          crearTarea={crearTarea}
+          crearEquipo={crearEquipo}
            />
          </div>
 
 
          <div className="one-half column">
           <h2>{titulo}</h2>
-          { tareas.map( tarea => (
-            <Tarea
-              key={tarea.id}
-              tarea={tarea}
-              eliminarTarea={eliminarTarea}
+          { equipos.map( equipo => (
+            <Equipo
+              key={equipo.id}
+              equipo={equipo}
+              eliminarEquipo={eliminarEquipo}
              />
           ))}
          </div>
